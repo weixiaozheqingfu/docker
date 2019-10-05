@@ -1,0 +1,13 @@
+
+# Java Files #
+*.jar
+*.war
+*.tar.gz
+*.class
+libs/
+classes/
+.cache/
+
+# 苹果机器的内部管理文件
+*~
+.DS_Store
