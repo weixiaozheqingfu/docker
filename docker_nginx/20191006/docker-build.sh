@@ -1,6 +1,6 @@
 ﻿#!/bin/bash
 
-IMAGE_NAME=docker_image_nginx:1.17.2:20191006
+IMAGE_NAME=docker_image_nginx_1.17.2:20191006
 
 echo $IMAGE_NAME
 
