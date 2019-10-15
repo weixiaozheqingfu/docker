@@ -1,0 +1,51 @@
+version: '2'
+services:
+    zoo1:
+        image: zookeeper:3.3.6
+        restart: always
+        container_name: zoo1
+        networks:
+            mynet:              # 使用指定的网桥mynet, docker会默认先创建一个mynet的brige类型的网桥，并且网桥的名称是【docker-compose名称_mynet】作为网桥的全称的。这里不设置默认就是创建并使用【docker-compose名称_default】的brige网桥作为当前容器的默认网桥
+                aliases:        # 设置当前容器的网络别名为zoo1，默认不设置的话容器网络别名与容器名称保持一致。设置网络别名后，可以在其他容器中ping zoo1访问到该容器。
+                    - zoo1
+        ports:
+            - "2181:2181"
+        environment:
+            ZOO_MY_ID: 1
+            ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
+ 
+    zoo2:
+        image: zookeeper:3.3.6
+        restart: always
+        container_name: zoo2
+        networks:
+            mynet:            # 使用指定的网桥mynet, docker会默认先创建一个mynet的brige类型的网桥，并且网桥的名称是【docker-compose名称_mynet】作为网桥的全称的。这里不设置默认就是创建并使用【docker-compose名称_default】的brige网桥作为当前容器的默认网桥
+                aliases:        # 设置当前容器的网络别名为zoo2，默认不设置的话容器网络别名与容器名称保持一致。设置网络别名后，可以在其他容器中ping zoo2访问到该容器。
+                    - zoo2
+        ports:
+            - "2182:2181"
+        environment:
+            ZOO_MY_ID: 2
+            ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
+ 
+    zoo3:
+        image: zookeeper:3.3.6
+        restart: always
+        container_name: zoo3
+        networks:
+            mynet:            # 使用指定的网桥mynet, docker会默认先创建一个mynet的brige类型的网桥，并且网桥的名称是【docker-compose名称_mynet】作为网桥的全称的。这里不设置默认就是创建并使用【docker-compose名称_default】的brige网桥作为当前容器的默认网桥
+                aliases:        # 设置当前容器的网络别名为zoo3，默认不设置的话容器网络别名与容器名称保持一致。设置网络别名后，可以在其他容器中ping zoo3访问到该容器。
+                    - zoo3
+        ports:
+            - "2183:2181"
+        environment:
+            ZOO_MY_ID: 3
+            ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
+
+
+# 启动时会根据此处配置创建网络，默认创建的网络类型是brige的。
+# 如果此处没有配置，则会创建默认网桥，名称为[compose工程名称_default]网桥。如果上面配置容器中没有指定网络，则会创建并使用该默认网络。
+networks:
+     mynet:
+
+            
