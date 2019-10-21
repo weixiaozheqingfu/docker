@@ -1,9 +1,22 @@
 version: '2'
 services:
+    disconf_nginx: 
+        image: weixiaozheqingfu/docker_image_nginx_1.17.2:20191018
+        container_name: disconf_nginx
+        restart: always
+        networks: 
+            default:        
+                aliases:       
+                    - nginxhost
+        ports: 
+            - "80:80"
+
     disconf_mysql: 
         image: weixiaozheqingfu/docker_image_mysql_5.7.27:20191018
-        restart: always
         container_name: disconf_mysql
+        restart: always
+        depends_on:
+            - disconf_nginx
         networks: 
             default:    
                 aliases: 
@@ -39,75 +52,81 @@ services:
             - /root/data/redis02/data:/data
         command: redis-server /etc/redis/redis.conf
 
-    disconf_zookeeper_01:
+    disconf_zookeeper:
         image: zookeeper:3.3.6
+        container_name: disconf_zookeeper
         restart: always
-        container_name: disconf_zookeeper_01
         depends_on:
             - disconf_redis_02
         networks: 
             default: 
                 aliases: 
-                    - zkhost001
+                    - zkhost
         environment:
             ZOO_MY_ID: 1
-            ZOO_SERVERS: server.1=zkhost001:2888:3888 server.2=zkhost002:2888:3888 server.3=zkhost003:2888:3888
-    disconf_zookeeper_02:
-        image: zookeeper:3.3.6
-        restart: always
-        container_name: disconf_zookeeper_02
-        depends_on:
-            - disconf_zookeeper_01
-        networks: 
-            default: 
-                aliases: 
-                    - zkhost002
-        environment:
-            ZOO_MY_ID: 2
-            ZOO_SERVERS: server.1=zkhost001:2888:3888 server.2=zkhost002:2888:3888 server.3=zkhost003:2888:3888
-    disconf_zookeeper_03:
-        image: zookeeper:3.3.6
-        restart: always
-        container_name: disconf_zookeeper_03
-        depends_on:
-            - disconf_zookeeper_02
-        networks: 
-            default: 
-                aliases: 
-                    - zkhost003
-        environment: 
-            ZOO_MY_ID: 3
-            ZOO_SERVERS: server.1=zkhost001:2888:3888 server.2=zkhost002:2888:3888 server.3=zkhost003:2888:3888
+            ZOO_SERVERS: server.1=zkhost:2888:3888
+        ports: 
+            - "2181:2181"
+
+    #disconf_zookeeper_01:
+    #    image: zookeeper:3.3.6
+    #    restart: always
+    #    container_name: disconf_zookeeper_01
+    #    depends_on:
+    #        - disconf_redis_02
+    #    networks: 
+    #        default: 
+    #            aliases: 
+    #                - zkhost001
+    #    environment:
+    #        ZOO_MY_ID: 1
+    #        ZOO_SERVERS: server.1=zkhost001:2888:3888 server.2=zkhost002:2888:3888 server.3=zkhost003:2888:3888
+    #disconf_zookeeper_02:
+    #    image: zookeeper:3.3.6
+    #    restart: always
+    #    container_name: disconf_zookeeper_02
+    #    depends_on:
+    #        - disconf_zookeeper_01
+    #    networks: 
+    #        default: 
+    #            aliases: 
+    #                - zkhost002
+    #    environment:
+    #        ZOO_MY_ID: 2
+    #        ZOO_SERVERS: server.1=zkhost001:2888:3888 server.2=zkhost002:2888:3888 server.3=zkhost003:2888:3888
+    #disconf_zookeeper_03:
+    #    image: zookeeper:3.3.6
+    #    restart: always
+    #    container_name: disconf_zookeeper_03
+    #    depends_on:
+    #        - disconf_zookeeper_02
+    #    networks: 
+    #        default: 
+    #            aliases: 
+    #                - zkhost003
+    #   environment: 
+    #       ZOO_MY_ID: 3
+    #       ZOO_SERVERS: server.1=zkhost001:2888:3888 server.2=zkhost002:2888:3888 server.3=zkhost003:2888:3888
 
     disconf_tomcat: 
-        image: weixiaozheqingfu/docker_image_tomcat_8.5.46:20191018
-        restart: always
+        image: weixiaozheqingfu/docker_image_tomcat:20191018
         container_name: disconf_tomcat
+        restart: always
         depends_on:
-            - disconf_zookeeper_03
+            - disconf_nginx
         networks: 
             default:        
                 aliases:       
                     - tomcathost
-
-    disconf_nginx: 
-      image: weixiaozheqingfu/docker_image_nginx_1.17.2:20191018
-      restart: always
-      container_name: disconf_nginx
-      depends_on:
-            - disconf_tomcat
-      networks: 
-            default:        
-                aliases:       
-                    - nginxhost
-      ports: 
-        - "80:80"
         
     disconf_java: 
         image: weixiaozheqingfu/stand_alone_demo:20191018
-        restart: always
         container_name: disconf_java
+        restart: always
         depends_on:
             - disconf_nginx
+            - disconf_zookeeper
+            - disconf_tomcat
+
 
         

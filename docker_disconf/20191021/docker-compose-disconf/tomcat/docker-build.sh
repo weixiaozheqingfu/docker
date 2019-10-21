@@ -1,5 +1,5 @@
 ﻿#!/bin/bash
-IMAGE_NAME=docker_image_tomcat:20191018
+IMAGE_NAME=docker_image_tomcat_8.5.46:20191021
 
 echo $IMAGE_NAME
 

@@ -1,0 +1,81 @@
+version: '2'
+services:
+    disconf_mysql: 
+        image: weixiaozheqingfu/docker_image_mysql_5.7.27:20191021
+        restart: always
+        container_name: disconf_mysql
+        networks: 
+            default:    
+                aliases: 
+                    - mysqlhost
+        environment: 
+            MYSQL_ROOT_PASSWORD: root
+
+    disconf_redis_01: 
+        image: weixiaozheqingfu/docker_image_redis_5.0.4:20191021
+        container_name: disconf_redis_01
+        restart: always
+        depends_on:
+            - disconf_mysql
+        networks: 
+            default: 
+                aliases: 
+                    - redishost001
+        volumes: 
+            - /root/data/redis01/data:/data
+        command: redis-server /etc/redis/redis.conf
+
+    disconf_redis_02:
+        image: weixiaozheqingfu/docker_image_redis_5.0.4:20191021
+        container_name: disconf_redis_02
+        restart: always
+        depends_on:
+            - disconf_redis_01
+        networks: 
+            default:    
+                aliases: 
+                    - redishost002
+        volumes:
+            - /root/data/redis02/data:/data
+        command: redis-server /etc/redis/redis.conf
+
+    disconf_zookeeper:
+        image: zookeeper:3.3.6
+        restart: always
+        container_name: disconf_zookeeper
+        depends_on:
+            - disconf_redis_02
+        networks: 
+            default: 
+                aliases: 
+                    - zkhost
+        environment:
+            ZOO_MY_ID: 1
+            ZOO_SERVERS: server.1=zkhost:2888:3888
+        ports: 
+            - "2181:2181"
+
+    disconf_tomcat: 
+        image: weixiaozheqingfu/docker_image_tomcat_8.5.46:20191021
+        restart: always
+        container_name: disconf_tomcat
+        depends_on:
+            - disconf_zookeeper
+        networks: 
+            default:        
+                aliases:       
+                    - tomcathost
+
+    disconf_nginx: 
+      image: weixiaozheqingfu/docker_image_nginx_1.17.2:20191021
+      restart: always
+      container_name: disconf_nginx
+      depends_on:
+            - disconf_tomcat
+      networks: 
+            default:        
+                aliases:       
+                    - nginxhost
+      ports: 
+        - "8081:80"
+        

@@ -1,6 +1,6 @@
 ﻿#!/bin/bash
-FILE_NAME=docker_image_tomcat
-IMAGE_VERSION=20191018
+FILE_NAME=docker_image_tomcat_8.5.46
+IMAGE_VERSION=20191021
 IMAGE_NAME=weixiaozheqingfu/$FILE_NAME:$IMAGE_VERSION
 
 docker rm $FILE_NAME
