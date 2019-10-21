@@ -1,7 +1,6 @@
 ﻿#!/bin/bash
-
 FILE_NAME=docker_image_redis_5.0.4
-IMAGE_VERSION=20191015
+IMAGE_VERSION=20191018
 IMAGE_NAME=weixiaozheqingfu/$FILE_NAME:$IMAGE_VERSION
 CONTAINER_NAME=disconf_redis_01
 

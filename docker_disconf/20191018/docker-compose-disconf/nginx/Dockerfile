@@ -1,12 +1,7 @@
-# Docker image of disconf nginx
-# VERSION 0.0.1
-# Author: bolingcavalry
-
-#基础镜像使用nginx:stable
-FROM nginx:stable
+FROM nginx:1.17.2
 
 #作者
-MAINTAINER BolingCavalry <zq2599@gmail.com>
+MAINTAINER limengjun
 
 #定义工作目录
 ENV WORK_PATH /usr/local/work/html

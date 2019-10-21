@@ -1,6 +1,5 @@
 ﻿#!/bin/bash
-
-IMAGE_NAME=docker_image_redis_5.0.4:20191015
+IMAGE_NAME=docker_image_redis_5.0.4:20191018
 
 echo $IMAGE_NAME
 

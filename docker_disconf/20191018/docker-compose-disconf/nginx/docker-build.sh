@@ -1,6 +1,5 @@
 ﻿#!/bin/bash
-
-IMAGE_NAME=docker_image_mysql_5.7.27:20191015
+IMAGE_NAME=docker_image_nginx_1.17.2:20191018
 
 echo $IMAGE_NAME
 

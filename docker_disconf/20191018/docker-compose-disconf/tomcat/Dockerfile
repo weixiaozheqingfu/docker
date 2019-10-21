@@ -1,16 +1,15 @@
 # Docker image of disconf tomcat
 # VERSION 0.0.1
-# Author: bolingcavalry
+# Author: limengjun
 
-#基础镜像使用tomcat:7.0.77-jre8
-FROM tomcat:7.0.77-jre8
+#基础镜像使用weixiaozheqingfu/docker_image_tomcat_8.5.46:20191018
+FROM weixiaozheqingfu/docker_image_tomcat_8.5.46:20191018
 
 #作者
-MAINTAINER BolingCavalry <zq2599@gmail.com>
+MAINTAINER limengjun <xyz@qq.com>
 
 #定义工作目录
 ENV TOMCAT_BASE /usr/local/tomcat
-
 
 #复制配置文件
 COPY ./server.xml $TOMCAT_BASE/conf/
