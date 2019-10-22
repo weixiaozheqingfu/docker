@@ -1,5 +1,5 @@
 ﻿#!/bin/bash
-IMAGE_NAME=docker_image_redis_5.0.4:20191021
+IMAGE_NAME=disconf_redis_5.0.4:20191021
 
 echo $IMAGE_NAME
 

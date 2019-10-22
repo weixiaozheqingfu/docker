@@ -1,5 +1,5 @@
 ﻿#!/bin/bash
-IMAGE_NAME=docker_image_mysql_5.7.27:20191021
+IMAGE_NAME=disconf_mysql_5.7.27:20191021
 
 echo $IMAGE_NAME
 

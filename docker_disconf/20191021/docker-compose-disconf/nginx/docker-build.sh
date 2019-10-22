@@ -1,5 +1,5 @@
 ﻿#!/bin/bash
-IMAGE_NAME=docker_image_nginx_1.17.2:20191021
+IMAGE_NAME=disconf_nginx_1.17.2:20191021
 
 echo $IMAGE_NAME
 

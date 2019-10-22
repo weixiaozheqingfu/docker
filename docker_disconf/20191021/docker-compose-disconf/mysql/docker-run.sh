@@ -1,5 +1,5 @@
 ﻿#!/bin/bash
-FILE_NAME=docker_image_mysql_5.7.27
+FILE_NAME=disconf_mysql_5.7.27
 IMAGE_VERSION=20191021
 IMAGE_NAME=weixiaozheqingfu/$FILE_NAME:$IMAGE_VERSION
 CONTAINER_NAME=disconf_mysql

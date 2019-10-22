@@ -1,7 +1,7 @@
 version: '2'
 services:
     disconf_mysql: 
-        image: weixiaozheqingfu/docker_image_mysql_5.7.27:20191021
+        image: weixiaozheqingfu/disconf_mysql_5.7.27:20191021
         restart: always
         container_name: disconf_mysql
         networks: 
@@ -12,7 +12,7 @@ services:
             MYSQL_ROOT_PASSWORD: root
 
     disconf_redis_01: 
-        image: weixiaozheqingfu/docker_image_redis_5.0.4:20191021
+        image: weixiaozheqingfu/disconf_redis_5.0.4:20191021
         container_name: disconf_redis_01
         restart: always
         depends_on:
@@ -26,7 +26,7 @@ services:
         command: redis-server /etc/redis/redis.conf
 
     disconf_redis_02:
-        image: weixiaozheqingfu/docker_image_redis_5.0.4:20191021
+        image: weixiaozheqingfu/disconf_redis_5.0.4:20191021
         container_name: disconf_redis_02
         restart: always
         depends_on:
@@ -56,7 +56,7 @@ services:
             - "2181:2181"
 
     disconf_tomcat: 
-        image: weixiaozheqingfu/docker_image_tomcat_8.5.46:20191021
+        image: weixiaozheqingfu/disconf_tomcat_8.5.46:20191021
         restart: always
         container_name: disconf_tomcat
         depends_on:
@@ -67,7 +67,7 @@ services:
                     - tomcathost
 
     disconf_nginx: 
-      image: weixiaozheqingfu/docker_image_nginx_1.17.2:20191021
+      image: weixiaozheqingfu/disconf_nginx_1.17.2:20191021
       restart: always
       container_name: disconf_nginx
       depends_on:

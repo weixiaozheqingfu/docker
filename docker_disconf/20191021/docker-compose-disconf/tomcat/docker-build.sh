@@ -1,5 +1,5 @@
 ﻿#!/bin/bash
-IMAGE_NAME=docker_image_tomcat_8.5.46:20191021
+IMAGE_NAME=disconf_tomcat_8.5.46:20191021
 
 echo $IMAGE_NAME
 
