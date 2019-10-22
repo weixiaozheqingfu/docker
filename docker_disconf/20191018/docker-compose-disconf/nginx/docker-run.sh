@@ -1,6 +1,6 @@
 ﻿#!/bin/bash
 
-FILE_NAME=docker_image_nginx_1.17.2
+FILE_NAME=disconf_nginx_1.17.2
 IMAGE_VERSION=20191018
 IMAGE_NAME=weixiaozheqingfu/$FILE_NAME:$IMAGE_VERSION
 

@@ -1,5 +1,5 @@
 ﻿#!/bin/bash
-FILE_NAME=docker_image_tomcat
+FILE_NAME=disconf_tomcat_8.5.46
 IMAGE_VERSION=20191018
 IMAGE_NAME=weixiaozheqingfu/$FILE_NAME:$IMAGE_VERSION
 

@@ -1,22 +1,9 @@
 version: '2'
 services:
-    disconf_nginx: 
-        image: weixiaozheqingfu/docker_image_nginx_1.17.2:20191018
-        container_name: disconf_nginx
-        restart: always
-        networks: 
-            default:        
-                aliases:       
-                    - nginxhost
-        ports: 
-            - "80:80"
-
     disconf_mysql: 
-        image: weixiaozheqingfu/docker_image_mysql_5.7.27:20191018
+        image: weixiaozheqingfu/disconf_mysql_5.7.27:20191018
         container_name: disconf_mysql
         restart: always
-        depends_on:
-            - disconf_nginx
         networks: 
             default:    
                 aliases: 
@@ -25,7 +12,7 @@ services:
             MYSQL_ROOT_PASSWORD: root
 
     disconf_redis_01: 
-        image: weixiaozheqingfu/docker_image_redis_5.0.4:20191018
+        image: weixiaozheqingfu/disconf_redis_5.0.4:20191018
         container_name: disconf_redis_01
         restart: always
         depends_on:
@@ -39,7 +26,7 @@ services:
         command: redis-server /etc/redis/redis.conf
 
     disconf_redis_02:
-        image: weixiaozheqingfu/docker_image_redis_5.0.4:20191018
+        image: weixiaozheqingfu/disconf_redis_5.0.4:20191018
         container_name: disconf_redis_02
         restart: always
         depends_on:
@@ -109,16 +96,28 @@ services:
     #       ZOO_SERVERS: server.1=zkhost001:2888:3888 server.2=zkhost002:2888:3888 server.3=zkhost003:2888:3888
 
     disconf_tomcat: 
-        image: weixiaozheqingfu/docker_image_tomcat:20191018
+        image: weixiaozheqingfu/disconf_tomcat_8.5.46:20191018
         container_name: disconf_tomcat
         restart: always
         depends_on:
-            - disconf_nginx
+            - disconf_zookeeper
         networks: 
             default:        
                 aliases:       
                     - tomcathost
-        
+    disconf_nginx: 
+        image: weixiaozheqingfu/disconf_nginx_1.17.2:20191018
+        container_name: disconf_nginx
+        restart: always
+        depends_on:
+            - disconf_tomcat
+        networks: 
+            default:        
+                aliases:       
+                    - nginxhost
+        ports: 
+            - "80:80"
+
     disconf_java: 
         image: weixiaozheqingfu/stand_alone_demo:20191018
         container_name: disconf_java
