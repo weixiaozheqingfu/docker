@@ -2,11 +2,11 @@
 
 WAR_NAME=org-crm
 #需要修改
-IMAGE_VERSION=201909301726
+IMAGE_VERSION=20191022
 IMAGE_NAME=weixiaozheqingfu/$WAR_NAME:$IMAGE_VERSION
 
 docker rm $WAR_NAME
-docker run --name $WAR_NAME -p 8080:8080 -d --add-host disconf.systoon.com:172.28.18.48 $IMAGE_NAME 
+docker run --name $WAR_NAME -p 8080:8080 -d --add-host disconf.systoon.com:172.31.241.115 $IMAGE_NAME 
 
 
 
