@@ -31,7 +31,6 @@ services:
         - CLUSTERED=true
         - CLUSTER_WITH=rabbitmq1
         - RAM_NODE=true
-        - HA_ENABLE=true
   rabbitmq3:
     image: weixiaozheqingfu/rabbitmq-server:20191123
     container_name: rabbitmq3
@@ -61,7 +60,7 @@ services:
         aliases: 
           - producerhost
     environment:
-     - mq.rabbit.address=rabbitmq1host:5672,rabbitmq2host:5672,rabbitmq3host:5672
+     - mq.rabbit.address=rabbitmq1host:5672
      - mq.rabbit.username=admin
      - mq.rabbit.password=888888
      - mq.rabbit.exchange.name=producer.first.fanout.exchange
@@ -76,7 +75,7 @@ services:
         aliases: 
           - consumer1host
     environment:
-     - mq.rabbit.address=rabbitmq1host:5672,rabbitmq2host:5672,rabbitmq3host:5672
+     - mq.rabbit.address=rabbitmq2host:5672
      - mq.rabbit.username=admin
      - mq.rabbit.password=888888
      - mq.rabbit.exchange.name=producer.first.fanout.exchange
@@ -92,7 +91,7 @@ services:
         aliases: 
           - consumer2host
     environment:
-     - mq.rabbit.address=rabbitmq1host:5672,rabbitmq2host:5672,rabbitmq3host:5672
+     - mq.rabbit.address=rabbitmq3host:5672
      - mq.rabbit.username=admin
      - mq.rabbit.password=888888
      - mq.rabbit.exchange.name=producer.first.fanout.exchange

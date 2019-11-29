@@ -28,8 +28,8 @@ services:
           - producerhost
     environment:
      - mq.rabbit.address=rabbitmqhost:5672
-     - mq.rabbit.username=glitter
-     - mq.rabbit.password=glitter
+     - mq.rabbit.username=admin
+     - mq.rabbit.password=888888
      - mq.rabbit.exchange.name=producer.first.fanout.exchange
   consumer:
     image: weixiaozheqingfu/rabbitmq-consumer:20191126
@@ -43,7 +43,7 @@ services:
           - consumerhost
     environment:
      - mq.rabbit.address=rabbitmqhost:5672
-     - mq.rabbit.username=glitter
-     - mq.rabbit.password=glitter
+     - mq.rabbit.username=admin
+     - mq.rabbit.password=888888
      - mq.rabbit.exchange.name=producer.first.fanout.exchange
      - mq.rabbit.queue.name=consumer1.first.fanout.queue
