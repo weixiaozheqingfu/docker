@@ -1,0 +1,65 @@
+version: '2'
+services:
+  mysql-master: 
+    image: weixiaozheqingfu/mysql_master:20200106
+    container_name: mysql-master
+    environment:
+      MYSQL_ROOT_PASSWORD: 888888
+      MYSQL_REPLICATION_USER: rep
+      MYSQL_REPLICATION_PASSWORD: 123456
+    volumes:
+     - ./master:/etc/mysql/extend.conf.d
+    networks: 
+      default:        
+        aliases:       
+          - mysql-master-host
+    ports: 
+      - "33061:3306"
+    restart: always
+  mysql-slave0: 
+    image: weixiaozheqingfu/mysql_slave:20200106
+    container_name: mysql-slave0
+    depends_on:
+      - mysql-master
+    environment:
+      MYSQL_ROOT_PASSWORD: 888888
+      MYSQL_MASTER_SERVICE_HOST:  mysql-master-host
+      MYSQL_REPLICATION_USER: rep
+      MYSQL_REPLICATION_PASSWORD: 123456
+    volumes:
+      - ./slave0:/etc/mysql/extend.conf.d
+    networks: 
+      default:        
+        aliases:       
+          - mysql-slave0-host
+    ports: 
+      - "33062:3306"
+    restart: always
+  mysql-slave1:
+    image: weixiaozheqingfu/mysql_slave:20200106
+    container_name: mysql-slave1
+    depends_on:
+      - mysql-master
+    environment:
+      MYSQL_ROOT_PASSWORD: 888888
+      MYSQL_MASTER_SERVICE_HOST:  mysql-master-host
+      MYSQL_REPLICATION_USER: rep
+      MYSQL_REPLICATION_PASSWORD: 123456
+    volumes:
+      - ./slave1:/etc/mysql/extend.conf.d
+    networks: 
+      default:        
+        aliases:       
+          - mysql-slave1-host
+    ports: 
+      - "33063:3306"
+    restart: always
+
+
+
+
+
+
+
+
+
